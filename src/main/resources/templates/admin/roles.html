@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h2>Список ролей</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="role : ${roles}">
+        <td th:text="${role.id}"></td>
+        <td th:text="${role.name}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

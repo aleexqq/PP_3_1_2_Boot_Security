@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Изменить пользователя</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<h1 th:text="${user.email}"></h1>
+
+<form th:method="POST" th:action="@{/admin/users/edit}" th:object="${user}">
+    <input type="hidden" name="id" th:value="${user.id}">
+    <input type="hidden" name="email" th:value="${user.email}">
+<!--    <input type="hidden" name="roles" th:value="${user.roles}">-->
+
+    <label for="name">Имя пользователя: </label>
+    <input type="text" id="name" th:field="*{name}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <br/>
+    <label for="password">Пароль: </label>
+    <input type="password" id="password" th:field="*{password}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <br/>
+    <input type="submit" value="Изменить"/>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль пользователя</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<h2>Имя пользователя:</h2>
+<p th:text="${user.name}">
+<h2>Email:</h2>
+<p th:text="${user.email}">
+<h2>Роли:</h2>
+<p th:each="authority : ${user.authorities}" th:text="${authority.authority}">
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <a th:href="@{/admin/users}">
+        <button>Управление пользователями</button>
+    </a>
+</div>
+</body>
+</html>
