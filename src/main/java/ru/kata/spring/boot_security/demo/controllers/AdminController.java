@@ -63,34 +63,45 @@ public class AdminController {
         User user = userService.getUserById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
+        modelAndView.addObject("roles", roleService.findAll());
         modelAndView.setViewName("admin/edit");
         return modelAndView;
     }
 
     @PostMapping("users/edit")
-    public String editUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public ModelAndView editUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            return "admin/edit";
+            modelAndView.addObject("roles", roleService.findAll());
+            modelAndView.setViewName("admin/edit");
+            return modelAndView;
         }
-        User existingUser = userService.getUserById(user.getId());
-        user.setRoles(existingUser.getRoles());
-        userService.updateUser(user);
-        return "redirect:/admin/users";
+        userService.saveUser(user);
+        modelAndView.setViewName("redirect:/admin/users");
+        return modelAndView;
     }
 
     @GetMapping("users/add")
-    public String addUserPage(@ModelAttribute("user") User user) {
-        return "admin/add";
+    public ModelAndView addUserPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("user", new User());
+        modelAndView.addObject("roles", roleService.findAll());
+        modelAndView.setViewName("admin/add");
+        return modelAndView;
     }
 
     @PostMapping("users/add")
-    public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+    public ModelAndView addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
+        ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
-            return "admin/add";
+            modelAndView.addObject("roles", roleService.findAll());
+            modelAndView.setViewName("admin/add");
+            return modelAndView;
         }
         userService.saveUser(user);
-        return "redirect:/admin/users";
+        modelAndView.setViewName("redirect:/admin/users");
+        return modelAndView;
     }
 
 

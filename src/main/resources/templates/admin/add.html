@@ -20,6 +20,11 @@
   <input type="password" th:field="*{password}" id="password"/>
   <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
   <br/>
+  <label for="roles">Выберите роли:</label>
+  <select multiple="multiple" id="roles" th:field="*{roles}">
+    <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+  </select>
+  <br/>
   <input type="submit" value="Добавить"/>
 </form>
 

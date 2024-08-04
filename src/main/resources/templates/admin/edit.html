@@ -9,9 +9,8 @@
 <h1 th:text="${user.email}"></h1>
 
 <form th:method="POST" th:action="@{/admin/users/edit}" th:object="${user}">
-    <input type="hidden" name="id" th:value="${user.id}">
-    <input type="hidden" name="email" th:value="${user.email}">
-<!--    <input type="hidden" name="roles" th:value="${user.roles}">-->
+    <input type="hidden" name="id" th:field="${user.id}">
+    <input type="hidden" name="email" th:field="${user.email}">
 
     <label for="name">Имя пользователя: </label>
     <input type="text" id="name" th:field="*{name}"/>
@@ -20,6 +19,11 @@
     <label for="password">Пароль: </label>
     <input type="password" id="password" th:field="*{password}"/>
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <br/>
+    <label for="roles">Выберите роли:</label>
+    <select multiple="multiple" id="roles" th:field="*{roles}">
+        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+    </select>
     <br/>
     <input type="submit" value="Изменить"/>
 

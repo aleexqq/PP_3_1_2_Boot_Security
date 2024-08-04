@@ -13,8 +13,9 @@
         <th>ID</th>
         <th>Email</th>
         <th>Имя</th>
-        <th>Пароль</th>
-        <th>Действия</th>
+        <th>Роли</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
     </tr>
     </thead>
     <tbody>
@@ -22,12 +23,18 @@
         <td th:text="${user.id}"></td>
         <td th:text="${user.email}"></td>
         <td th:text="${user.name}"></td>
-        <td th:text="${user.password}"></td>
+        <td>
+            <span th:each="role : ${user.authorities}"
+                  th:text="${role.authority.replace('ROLE_', ' ')}">
+            </span>
+        </td>
         <td>
             <a th:href="@{'/admin/users/edit?id=' + ${user.id}}">
                 <button>Edit</button>
             </a>
-            <form th:action="@{'/admin/users/delete?id=' + ${user.id}}" method="post" style="display:inline;">
+        </td>
+        <td>
+            <form th:action="@{'/admin/users/delete?id=' + ${user.id}}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>

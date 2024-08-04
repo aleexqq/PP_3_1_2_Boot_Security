@@ -24,9 +24,14 @@ public class UserService {
         this.roleService = roleService;
     }
 
-    public void saveUser(User user) {
+    public void registerUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Collections.singletonList(roleService.findByName("ROLE_USER")));
+        userRepository.save(user);
+    }
+
+    public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -40,10 +45,5 @@ public class UserService {
 
     public List<User> allUsers() {
         return userRepository.findAll();
-    }
-
-    public void updateUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
     }
 }
