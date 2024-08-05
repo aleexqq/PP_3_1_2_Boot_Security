@@ -44,7 +44,7 @@ public class AdminController {
     }
 
     @GetMapping("/users")
-    public ModelAndView getUsersPage(@RequestParam(value = "id", required = false) Integer id) {
+    public ModelAndView getUsersPage(@RequestParam(value = "id", required = false) Long id) {
         List<User> users = new ArrayList<>();
         ModelAndView modelAndView = new ModelAndView();
         if (id == null) {
@@ -59,7 +59,7 @@ public class AdminController {
     }
 
     @GetMapping("users/edit")
-    public ModelAndView editUserPage(@RequestParam(value = "id", required = false) Integer id) {
+    public ModelAndView editUserPage(@RequestParam(value = "id", required = false) Long id) {
         User user = userService.getUserById(id);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("user", user);
@@ -70,6 +70,7 @@ public class AdminController {
 
     @PostMapping("users/edit")
     public ModelAndView editUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        userValidator.validate(user, bindingResult);
         ModelAndView modelAndView = new ModelAndView();
         if (bindingResult.hasErrors()) {
             modelAndView.addObject("roles", roleService.findAll());
@@ -106,7 +107,7 @@ public class AdminController {
 
 
     @PostMapping("users/delete")
-    public ModelAndView deleteUser(@RequestParam(value = "id", required = false) Integer id) {
+    public ModelAndView deleteUser(@RequestParam(value = "id", required = false) Long id) {
         ModelAndView modelAndView = new ModelAndView();
         User user = userService.getUserById(id);
         userService.deleteUser(user);

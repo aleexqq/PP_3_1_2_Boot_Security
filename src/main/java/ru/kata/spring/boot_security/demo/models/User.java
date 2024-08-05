@@ -12,12 +12,12 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User implements UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "name")
     @Size(min = 3, max = 100, message = "Длина имени должна быть от 3 до 100 символов")
@@ -49,11 +49,16 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public int getId() {
+    public User(String email, List<Role> roles) {
+        this.email = email;
+        this.roles = roles;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
