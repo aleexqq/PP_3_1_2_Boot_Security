@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Списоок пользователей</title>
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
@@ -30,12 +30,12 @@
         </td>
         <td>
             <a th:href="@{'/admin/users/edit?id=' + ${user.id}}">
-                <button>Edit</button>
+                <button class="btn btn-success">Edit</button>
             </a>
         </td>
         <td>
             <form th:action="@{'/admin/users/delete?id=' + ${user.id}}" method="post">
-                <button type="submit">Delete</button>
+                <button class="btn btn-danger" type="submit">Delete</button>
             </form>
         </td>
     </tr>

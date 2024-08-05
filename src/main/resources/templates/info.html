@@ -6,11 +6,11 @@
 </head>
 <body>
 <div th:replace="fragments/header :: header"></div>
-<h2>Имя пользователя:</h2>
+<h3>Имя пользователя:</h3>
 <p th:text="${user.name}">
-<h2>Email:</h2>
+<h3>Email:</h3>
 <p th:text="${user.email}">
-<h2>Роли:</h2>
+<h3>Роли:</h3>
 <p th:each="authority : ${user.authorities}" th:text="${authority.authority}">
 
 <div sec:authorize="hasRole('ROLE_ADMIN')">

@@ -5,7 +5,7 @@ drop table if exists roles;
 
 create table if not exists roles (
     id int auto_increment,
-    name varchar(100) not null,
+    name varchar(100) not null unique,
     primary key (id)
 );
 

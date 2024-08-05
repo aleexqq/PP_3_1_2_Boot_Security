@@ -6,15 +6,18 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 
-<h1 th:text="${user.email}"></h1>
+<h2 th:text="'ID: ' + ${user.id}"></h2>
 
 <form th:method="POST" th:action="@{/admin/users/edit}" th:object="${user}">
     <input type="hidden" name="id" th:field="${user.id}">
-    <input type="hidden" name="email" th:field="${user.email}">
 
     <label for="name">Имя пользователя: </label>
     <input type="text" id="name" th:field="*{name}"/>
     <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+    <br/>
+    <label for="email">Электронная почта: </label>
+    <input type="email" id="email" th:field="*{email}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
     <br/>
     <label for="password">Пароль: </label>
     <input type="password" id="password" th:field="*{password}"/>
