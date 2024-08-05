@@ -28,10 +28,10 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
         try {
-            userDetailsServiceImpl.loadUserByUsername(user.getUsername());
-        } catch (UsernameNotFoundException e) {
-            return;
-        }
-        errors.rejectValue("email", "", "Такой пользователь уже существует");
+            User existingUser = (User) userDetailsServiceImpl.loadUserByUsername(user.getUsername());
+            if (user.getId() == null || !user.getId().equals(existingUser.getId())){
+                errors.rejectValue("email", "", "Такой пользователь уже существует");
+            }
+        } catch (UsernameNotFoundException ignored) {}
     }
 }
